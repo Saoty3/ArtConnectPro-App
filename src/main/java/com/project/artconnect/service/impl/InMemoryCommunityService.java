@@ -44,7 +44,7 @@ public class InMemoryCommunityService implements CommunityService {
     }
 
     @Override
-    public Optional<CommunityMember> getMemberByName(String name) {
+    public Optional<CommunityMember> getMemberByEmail(String name) {
         return Optional.ofNullable(members.get(name));
     }
 
@@ -53,5 +53,20 @@ public class InMemoryCommunityService implements CommunityService {
         if (member == null)
             return Collections.emptyList();
         return member.getReviews();
+    }
+
+    @Override
+    public void createMember(CommunityMember member){
+
+    }
+
+    @Override
+    public void updateMember(CommunityMember member){
+
+    }
+
+    @Override
+    public void deleteMember(String name){
+
     }
 }

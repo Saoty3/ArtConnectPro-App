@@ -8,4 +8,10 @@ public interface CommunityMemberDao {
     Optional<CommunityMember> findById(Long id);
 
     List<CommunityMember> findAll();
+
+    public void save(CommunityMember member);
+
+    public void update(CommunityMember member);
+
+    public void delete(String name);
 }

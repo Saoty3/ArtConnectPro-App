@@ -1,0 +1,50 @@
+// ExhibitionServiceImpl.java
+package com.project.artconnect.service.linkdao;
+
+import com.project.artconnect.dao.ExhibitionDao;
+import com.project.artconnect.model.Exhibition;
+import com.project.artconnect.persistence.JdbcExhibitionDao;
+import com.project.artconnect.service.ExhibitionService;
+
+import java.util.List;
+import java.util.Optional;
+
+public class ExhibitionServiceImpl implements ExhibitionService {
+
+    private final ExhibitionDao exhibitionDao;
+
+    public ExhibitionServiceImpl() {
+        this.exhibitionDao = new JdbcExhibitionDao();
+    }
+
+    @Override
+    public List<Exhibition> getAllExhibitions() {
+        return exhibitionDao.findAll();
+    }
+
+    @Override
+    public Optional<Exhibition> getExhibitionByTitle(String title) {
+
+        return exhibitionDao.findAll()
+                .stream()
+                .filter(exhibition ->
+                        exhibition.getTitle() != null &&
+                                exhibition.getTitle().equalsIgnoreCase(title))
+                .findFirst();
+    }
+
+    @Override
+    public void createExhibition(Exhibition exhibition) {
+        exhibitionDao.save(exhibition);
+    }
+
+    @Override
+    public void updateExhibition(Exhibition exhibition) {
+        exhibitionDao.update(exhibition);
+    }
+
+    @Override
+    public void deleteExhibition(String title) {
+        exhibitionDao.delete(title);
+    }
+}

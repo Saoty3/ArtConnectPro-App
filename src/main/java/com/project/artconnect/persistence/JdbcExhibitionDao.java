@@ -14,7 +14,7 @@ public class JdbcExhibitionDao implements ExhibitionDao {
     public List<Exhibition> findAll() {
         String sql = "SELECT e.exhibitionID, e.title, e.startDate, e.endDate, e.description, e.theme, " +
                      "g.galleryID, g.name, g.address, g.openingHours, g.contactPhone, g.rating, g.website " +
-                     "FROM Exhibition e JOIN Gallery g ON e.galleryID = g.galleryID";
+                     "FROM Exhibition e LEFT JOIN Gallery g ON e.galleryID = g.galleryID";
         List<Exhibition> exhibitions = new ArrayList<>();
         
         try (Connection conn = ConnectionManager.getConnection();
@@ -27,6 +27,7 @@ public class JdbcExhibitionDao implements ExhibitionDao {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find all exhibitions", e);
         }
+        System.out.println("Exhibitions loaded: " + exhibitions.size());
         return exhibitions;
     }
 
@@ -93,8 +94,17 @@ public class JdbcExhibitionDao implements ExhibitionDao {
     private Exhibition mapRowToExhibition(ResultSet rs) throws SQLException {
         Exhibition exhibition = new Exhibition();
         exhibition.setTitle(rs.getString("title"));
-        exhibition.setStartDate(rs.getDate("startDate").toLocalDate());
-        exhibition.setEndDate(rs.getDate("endDate").toLocalDate());
+        if (rs.getDate("startDate") != null) {
+            exhibition.setStartDate(
+                    rs.getDate("startDate").toLocalDate()
+            );
+        }
+
+        if (rs.getDate("endDate") != null) {
+            exhibition.setEndDate(
+                    rs.getDate("endDate").toLocalDate()
+            );
+        }
         exhibition.setDescription(rs.getString("description"));
         exhibition.setTheme(rs.getString("theme"));
         

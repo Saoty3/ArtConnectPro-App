@@ -8,4 +8,10 @@ public interface WorkshopDao {
     Optional<Workshop> findById(Long id);
 
     List<Workshop> findAll();
+
+    public void save(Workshop workshop);
+
+    public void update(Workshop workshop);
+
+    public void delete(String title);
 }

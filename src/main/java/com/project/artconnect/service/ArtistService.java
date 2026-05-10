@@ -1,7 +1,9 @@
 package com.project.artconnect.service;
 
+import com.project.artconnect.service.linkdao.ArtistServiceImpl;
 import com.project.artconnect.model.Artist;
 import com.project.artconnect.model.Discipline;
+import com.project.artconnect.persistence.JdbcArtistDao;
 import java.util.List;
 import java.util.Optional;
 

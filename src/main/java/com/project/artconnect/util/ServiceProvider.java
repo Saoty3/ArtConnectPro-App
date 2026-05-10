@@ -2,25 +2,21 @@ package com.project.artconnect.util;
 
 import com.project.artconnect.service.*;
 import com.project.artconnect.service.impl.*;
+import com.project.artconnect.service.linkdao.*;
 
 /**
  * Service Provider to manage singleton instances of services and handle their
  * initialization.
  */
 public class ServiceProvider {
-    private static final InMemoryArtistService artistService = new InMemoryArtistService();
-    private static final InMemoryArtworkService artworkService = new InMemoryArtworkService();
-    private static final InMemoryGalleryService galleryService = new InMemoryGalleryService();
-    private static final InMemoryWorkshopService workshopService = new InMemoryWorkshopService();
-    private static final InMemoryCommunityService communityService = new InMemoryCommunityService();
+    private static final ArtistService artistService = new ArtistServiceImpl();
+    private static final ArtworkService artworkService = new ArtworkServiceImpl();
+    private static final GalleryService galleryService = new GalleryServiceImpl();
+    private static final WorkshopService workshopService = new WorkshopServiceImpl();
+    private static final CommunityService communityService = new CommunityServiceImpl();
+    private static final ExhibitionService exhibitionService = new ExhibitionServiceImpl();
 
-    static {
-        // Initialize services with their dependencies
-        artworkService.initData(artistService);
-        galleryService.initData(artworkService);
-        workshopService.initData(artistService);
-        communityService.initData(artworkService);
-    }
+
 
     public static ArtistService getArtistService() {
         return artistService;
@@ -41,4 +37,6 @@ public class ServiceProvider {
     public static CommunityService getCommunityService() {
         return communityService;
     }
+
+    public static ExhibitionService getExhibitionService() { return exhibitionService;}
 }
